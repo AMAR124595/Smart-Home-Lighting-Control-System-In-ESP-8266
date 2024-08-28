@@ -6,3 +6,4 @@ To interface an LDR (Light Dependent Resistor) with an ESP8266 and create a syst
 * ESP 8266
 * LDR
 # Connetion
+![ldr-nodemcu](https://github.com/user-attachments/assets/aa6d1fe1-2aff-4dda-9e5f-896755c845ca)
