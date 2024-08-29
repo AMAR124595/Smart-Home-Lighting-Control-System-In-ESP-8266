@@ -1,0 +1,108 @@
+#include <Arduino.h>
+
+int aut();
+int man();
+void setup() 
+{
+   Serial.begin(9600);
+  pinMode(D4,OUTPUT);
+  Serial.println("SMART HOME");
+  Serial.println(" a) Auto Mode      b) Manual Mode      c) exit");
+}
+void loop()
+{
+  char x;
+   if(Serial.available())
+   {
+    x=Serial.read();
+    if(x=='a')
+    {
+      aut();
+      Serial.println("SMART HOME");
+      Serial.println(" a) Auto Mode      b) Manual Mode      c) exit");
+    }
+     else if(x=='b')
+    {
+      man();
+      Serial.println("SMART HOME");
+      Serial.println(" a) Auto Mode      b) Manual Mode      c) exit");
+    }
+   }
+}
+int aut()
+{
+  Serial.println("AUTO MODE");
+  while(1)
+  {
+      
+            if(analogRead(A0)<400)
+              {
+                  Serial.println("DAY LIGHT OFF");
+                  digitalWrite(D4,HIGH);
+                  delay(100);
+                  while(analogRead(A0)<400)
+                    {
+                      
+                      char x;
+                        if(Serial.available())
+                          {
+                            x=Serial.read();
+                            if(x=='c')
+                            {
+                              return 0;
+                            }
+                          }
+                          delay(10);
+                    }
+            }
+              else if(analogRead(A0)>400)
+            {
+                Serial.println("DAY NIGHT ON");
+                digitalWrite(D4,LOW);
+                delay(100);
+                while(analogRead(A0)>400)
+                  {
+                    
+                    char x;
+                      if(Serial.available())
+                        {
+                          x=Serial.read();
+                          if(x=='c')
+                          {
+                            return 0;
+                          }
+                        }
+                        delay(10);
+                  }
+          }
+        
+   }
+}
+int man()
+{
+  Serial.println("MANUAL MODE");
+  Serial.println(" a) ON      b) 0FF      c) exit");
+  while(1)
+  {
+    
+    char x;
+    if(Serial.available())
+      {
+        x=Serial.read();
+        if(x=='a')
+        {
+          Serial.println("LED ON ");
+          digitalWrite(D4,LOW);
+        }
+        else if(x=='b')
+        {
+          Serial.println("LED OFF ");
+          digitalWrite(D4,HIGH);
+        }
+        else if(x=='c')
+        {
+          return 0;
+        }
+      }
+  }
+}
